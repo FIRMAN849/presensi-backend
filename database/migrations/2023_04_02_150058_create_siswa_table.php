@@ -1,0 +1,41 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateSiswaTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('siswas', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('nis');
+            $table->foreignId('kelas_id')->constrained('kelas')->onDelete('cascade');
+            $table->date('tgl_lahir')->format('dd/mm/yyyy');
+            $table->string('alamat');
+            $table->string('jenis_kelamin');
+            $table->string('email')->unique();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('siswas', function (Blueprint $table) {
+            $table->dropForeign(['user_id', 'kelas_id']);
+        });
+        Schema::dropIfExists('siswas');
+    }
+}
