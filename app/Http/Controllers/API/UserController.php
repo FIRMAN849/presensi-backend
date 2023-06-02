@@ -40,17 +40,29 @@ class UserController extends ControllersController
 
             $user = User::where('username', $request->username)->first();
 
-            if (!Hash::check($request->password, $user->password, [])) {
-                throw new \Exception('Invalid Credentials');
+            $siswa = DB::table('siswas')->where('user_id', $user['id']);
+            // cek user jika ada di data siswa
+            if($siswa->count() == 0) {
+                return ResponseFormatter::error(null, 'Username / Password Salah', 500);
+            } else {
+                // jika ada
+                $siswas = $siswa->first();
+                $user['siswa_id'] = $siswas->id;
+                $user['kelas_id'] = $siswas->kelas_id;
+
+                if (!Hash::check($request->password, $user->password, [])) {
+                    throw new \Exception('Invalid Credentials');
+                }
+                $tokenResult = $user->createToken('authToken')->plainTextToken;
+                $user['access_token'] = $tokenResult;
+                $user['token_type'] = 'Bearer';
+                return ResponseFormatter::success(
+                    $user,
+                    'Aunthenticated'
+                );
             }
-            $tokenResult = $user->createToken('authToken')->plainTextToken;
-            $user['access_token'] = $tokenResult;
-            $user['token_type'] = 'Bearer';
-            return ResponseFormatter::success(
-                $user,
-                'Aunthenticated'
-            );
         } catch (Exception $e) {
+            return ResponseFormatter::error(null, 'Authentication Failed', 500);
         }
     }
 

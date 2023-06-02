@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\IzinController;
 use App\Http\Controllers\API\JadwalController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\AbsensiController;
 
 
 /*
@@ -29,7 +30,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [UserController::class, 'logout']);
     // Route::get('jadwal', [UserController::class, 'schedules']);
 
-
     Route::post('izin', [IzinController::class, 'create']);
+    Route::get('izin/history/{id}', [IzinController::class, 'history']);
+
     Route::get('jadwal', [JadwalController::class, 'schedules']);
+    
+    Route::post('presensi', [AbsensiController::class, 'presensi']);
+    Route::get('presensi/history/{id}', [AbsensiController::class, 'history']);
 });
