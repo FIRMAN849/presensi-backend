@@ -40,10 +40,10 @@
                             <td>{{ \Carbon\Carbon::parse($jwl->jam_awal)->locale('id')->isoFormat('HH:mm') }}</td>
                             <td>{{ \Carbon\Carbon::parse($jwl->jam_akhir)->locale('id')->isoFormat('HH:mm') }}</td>
                             <td>
-                                <a href="/user/{{ $jwl->id }}/edit" class="btn btn-warning btn-sm">
+                                <a href="/jadwal/{{ $jwl->id }}/edit" class="btn btn-warning btn-sm">
                                     Edit
                                 </a>
-                                <form action="/user/{{ $jwl->id }}" method="POST" class="d-inline">
+                                <form action="/jadwal/{{ $jwl->id }}" method="POST" class="d-inline">
                                     @method('delete')
                                     @csrf
                                     <button class="btn btn-danger btn-sm border-0"

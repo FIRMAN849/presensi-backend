@@ -151,10 +151,19 @@
         <span>Izin</span>
     </a>
 
+    <a href="/qrcode" class="sidebar-item {{ $active === 'qrcode' ? 'active' : '' }}" onclick="toggleActive(this)">
+        <i class='bx bx-qr'></i>
+        <span>QR Presensi</span>
+    </a>
+
+    <a href="/absensi" class="sidebar-item {{ $active === 'absensi' ? 'active' : '' }}" onclick="toggleActive(this)">
+        <i class='bx bx-qr'></i>
+        <span>Manajemen Presensi</span>
+    </a>
+
     <h5 class="sidebar-title">Others</h5>
 
-    <a href="#" class="sidebar-item" onclick="toggleActive(this)">
-        <!-- <img src="./assets/img/global/box.svg" alt=""> -->
+    <!-- <a href="#" class="sidebar-item" onclick="toggleActive(this)">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M21 16V8C20.9996 7.64927 20.9071 7.30481 20.7315 7.00116C20.556 6.69751 20.3037 6.44536 20 6.27L13 2.27C12.696 2.09446 12.3511 2.00205 12 2.00205C11.6489 2.00205 11.304 2.09446 11 2.27L4 6.27C3.69626 6.44536 3.44398 6.69751 3.26846 7.00116C3.09294 7.30481 3.00036 7.64927 3 8V16C3.00036 16.3507 3.09294 16.6952 3.26846 16.9988C3.44398 17.3025 3.69626 17.5546 4 17.73L11 21.73C11.304 21.9055 11.6489 21.9979 12 21.9979C12.3511 21.9979 12.696 21.9055 13 21.73L20 17.73C20.3037 17.5546 20.556 17.3025 20.7315 16.9988C20.9071 16.6952 20.9996 16.3507 21 16Z"
@@ -169,7 +178,6 @@
     </a>
 
     <a href="#" class="sidebar-item" onclick="toggleActive(this)">
-        <!-- <img src="./assets/img/global/home.svg" alt=""> -->
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z"
@@ -182,7 +190,6 @@
     </a>
 
     <a href="#" class="sidebar-item" onclick="toggleActive(this)">
-        <!-- <img src="./assets/img/global/gift.svg" alt=""> -->
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M20 12V22H4V12" stroke="#ABB3C4" stroke-width="2" stroke-linecap="round"
                 stroke-linejoin="round" />
@@ -220,26 +227,25 @@
         <i class='bx bx-book'></i>
 
         <span>Settings</span>
-    </a>
+    </a> -->
 
-    <a href="#" class="sidebar-item" onclick="toggleActive(this)">
-        <!-- <img src="./assets/img/global/log-out.svg" alt=""> -->
-
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16 17L21 12L16 7" stroke="#ABB3C4" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-            <path d="M21 12H9" stroke="#ABB3C4" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-            <path
-                d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9"
-                stroke="#ABB3C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-
-        <span>Logout</span>
-    </a>
     <form action="/logout" method="post">
         @csrf
-        <button type="submit">Logout</button>
+        <button type="submit" class="sidebar-item" style="border: none; width: 100%;">
+            <!-- <img src="./assets/img/global/log-out.svg" alt=""> -->
+
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 17L21 12L16 7" stroke="#ABB3C4" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M21 12H9" stroke="#ABB3C4" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path
+                    d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9"
+                    stroke="#ABB3C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+
+            <span>Logout</span>
+        </button>
     </form>
 
 </aside>

@@ -32,7 +32,11 @@
                         </div>
                         <div class="mb-3">
                             <label class="col-form-label-sm">Keterangan</label>
-                            <textarea class="form-control form-control-sm" id="keterangan" name="keterangan" disabled>{{ $izin->keterangan }}</textarea>
+                            <input type="text" class="form-control form-control-sm" id="keterangan" name="keterangan" value="{{ $izin->keterangan }}" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label class="col-form-label-sm">Alasan</label>
+                            <textarea class="form-control form-control-sm" id="alasan" name="alasan" disabled>{{ $izin->alasan }}</textarea>
                         </div>
                         <div class="mb-3">
                             <label class="col-form-label-sm">Status</label>

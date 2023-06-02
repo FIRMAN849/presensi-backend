@@ -1,3 +1,8 @@
+<?php
+// $hashed = Hash::make('admin');
+// var_dump($hashed);
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -7,13 +12,9 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.101.0">
-    <title>Signin Template · Bootstrap v5.2</title>
+    <title>Presensi SMKN 2 Kraksaan</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
-
-
-
-
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 

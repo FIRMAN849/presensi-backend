@@ -19,9 +19,9 @@
             <table id="table_kelas" class="display">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th width="30px">#</th>
                         <th>Nama</th>
-                        <th>Nama</th>
+                        <th width="240px">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,6 +32,7 @@
                             <td>
                                 <a href="/kelas/siswa/{{ $kls->id }}" class="btn btn-warning btn-sm">Siswa</a>
                                 <a href="/kelas/jadwal/{{ $kls->id }}" class="btn btn-primary btn-sm">Jadwal</a>
+                                <a href="/kelas/absensi/{{ $kls->id }}" class="btn btn-info btn-sm">Absensi</a>
                             </td>
                         </tr>
                     @endforeach
