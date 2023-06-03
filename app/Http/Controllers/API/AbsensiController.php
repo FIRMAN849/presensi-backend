@@ -30,7 +30,7 @@ class AbsensiController extends Controller
         ]);
         // dd($validatedData);
 
-        if($validatedData['jenis_absen'] != 'smkn2kraksaan,presensi_datang' && $validatedData['jenis_absen'] != 'smkn2kraksaan,presensi_pulang') {
+        if ($validatedData['jenis_absen'] != 'smkn2kraksaan,presensi_datang' && $validatedData['jenis_absen'] != 'smkn2kraksaan,presensi_pulang') {
             return ResponseFormatter::error(
                 null,
                 'Jenis Absen tidak valid'
@@ -47,17 +47,17 @@ class AbsensiController extends Controller
 
         // cek apakah user sudah presensi atau belum hari ini
         $check = DB::table('absensis')->where(['siswa_id' => $validatedData['siswa_id'], 'jenis_absen' => $jenis_absen])->whereDate('tgl_absen', $datenow)->count();
-        if($check > 0) {
+        if ($check > 0) {
             return ResponseFormatter::error(
                 null,
-                'Anda sudah '.str_replace('_', ' ', $jenis_absen).' hari ini'
+                'Anda sudah ' . str_replace('_', ' ', $jenis_absen) . ' hari ini'
             );
         }
 
         // validasi jika presensi_pulang tetapi belum presensi_datang
-        if($jenis_absen == 'presensi_pulang') {
+        if ($jenis_absen == 'presensi_pulang') {
             $check2 = DB::table('absensis')->where(['siswa_id' => $validatedData['siswa_id'], 'jenis_absen' => 'presensi_datang'])->whereDate('tgl_absen', $datenow)->count();
-            if($check2 == 0) {
+            if ($check2 == 0) {
                 return ResponseFormatter::error(
                     null,
                     'Anda belum presensi datang hari ini, gagal untuk presensi pulang'
@@ -78,13 +78,13 @@ class AbsensiController extends Controller
         $timePulangJumat1 = Date('H:i:s', strtotime('10:45:00'));
         $timePulangJumat2 = Date('H:i:s', strtotime('12:00:00'));
 
-        if(in_array($daynow, array('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'))) {
-            if($jenis_absen == 'presensi_datang') {
+        if (in_array($daynow, array('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'))) {
+            if ($jenis_absen == 'presensi_datang') {
                 // datang senin~jumat
-                if($timenow >= $timeDatangSeninJumat1 && $timenow <= $timeDatangSeninJumat2) {
+                if ($timenow >= $timeDatangSeninJumat1 && $timenow <= $timeDatangSeninJumat2) {
                     $status = 'Tepat Waktu';
                 } else {
-                    if($timenow <= $timeDatangSeninJumat1) {
+                    if ($timenow <= $timeDatangSeninJumat1) {
                         $status = 'Tepat Waktu';
                     } else {
                         $status = 'Terlambat';
@@ -92,13 +92,13 @@ class AbsensiController extends Controller
                 }
             }
 
-            if($jenis_absen == 'presensi_pulang') {
-                if($daynow != 'Friday') {
+            if ($jenis_absen == 'presensi_pulang') {
+                if ($daynow != 'Friday') {
                     // jika bukan hari jumat
-                    if($timenow >= $timePulangSeninKamis1 && $timenow <= $timePulangSeninKamis2) {
+                    if ($timenow >= $timePulangSeninKamis1 && $timenow <= $timePulangSeninKamis2) {
                         $status = 'Tepat Waktu';
                     } else {
-                        if($timenow >= $timePulangSeninKamis2) {
+                        if ($timenow >= $timePulangSeninKamis2) {
                             $status = 'Tepat Waktu';
                         } else {
                             $status = 'Lebih Awal';
@@ -106,7 +106,7 @@ class AbsensiController extends Controller
                     }
                 } else {
                     // jika jumat
-                    if($timenow >= $timePulangJumat && $timenow <= $timePulangJumat) {
+                    if ($timenow >= $timePulangJumat1 && $timenow <= $timePulangJumat2) {
                         $status = 'Tepat Waktu';
                     } else {
                         $status = 'Lebih Awal';
@@ -130,9 +130,9 @@ class AbsensiController extends Controller
         // $result = $absensi->save();
 
         $message = 'Presensi berhasil';
-        if($status == 'Terlambat') {
+        if ($status == 'Terlambat') {
             $message = 'Presensi berhasil, anda terlambat datang hari ini';
-        } else if($status == 'Lebih Awal') {
+        } else if ($status == 'Lebih Awal') {
             $message = 'Presensi berhasil, anda pulang lebih awal hari ini';
         }
 
@@ -155,7 +155,7 @@ class AbsensiController extends Controller
         // ambil data dari parameter get
         // $siswa_id = $request['siswa_id'];
 
-        if(strlen($siswa_id) == 0) {
+        if (strlen($siswa_id) == 0) {
             return ResponseFormatter::error(
                 null,
                 'ID Siswa tidak valid'
