@@ -32,7 +32,7 @@
                             <td>
                                 <a href="/kelas/siswa/{{ $kls->id }}" class="btn btn-warning btn-sm">Siswa</a>
                                 <a href="/kelas/jadwal/{{ $kls->id }}" class="btn btn-primary btn-sm">Jadwal</a>
-                                <a href="/kelas/absensi/{{ $kls->id }}" class="btn btn-info btn-sm">Absensi</a>
+                                <a href="/kelas/absensi/{{ $kls->id }}" class="btn btn-info btn-sm">Presensi</a>
                             </td>
                         </tr>
                     @endforeach

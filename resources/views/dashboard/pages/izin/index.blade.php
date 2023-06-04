@@ -33,7 +33,7 @@
                             <td valign="top">{{ $i->kelas->nama_kelas }}</td>
                             <td valign="top">{{ $i->tgl_izin }}</td>
                             <td valign="top">
-                                <img src="/app/img/izin/{{ $i->image }}" width="180px" />
+                                <img src="{{ asset('app/public/img/izin/' . $i->image) }}" width="180px" />
                             </td>
                             <td valign="top">{{ $i->keterangan }}</td>
                             <td valign="top">{{ $i->alasan }}</td>
