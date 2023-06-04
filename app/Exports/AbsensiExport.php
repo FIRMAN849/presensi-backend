@@ -69,7 +69,7 @@ class AbsensiExport implements FromView
             foreach ($period as $key => $dt) {
                 $daynow = $dt->format('l');
 
-                if($daynow != 'Sunday') {
+                if($daynow != 'Sunday' && $daynow != 'Saturday') {
                     $arrPresensi[$sValue->id][] = array(
                         'tanggal' => $dt->format("Y-m-d"),
                         'datang' => null,

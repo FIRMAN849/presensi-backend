@@ -10,8 +10,7 @@ use App\Models\Siswa;
 use App\Models\User;
 use App\Models\Absensi;
 use App\Models\Izin;
-// use Request;
-use Illuminate\Http\Request;
+use Request;
 use Illuminate\Support\Facades\DB;
 
 class KelasController extends Controller
@@ -104,24 +103,24 @@ class KelasController extends Controller
         ]);
     }
 
-    public function absensi($id, Request $request)
+    public function absensi($id)
     {
-        // $request = Request::all();
+        $request = Request::all();
         // dd($request);
 
         $date1 = @$request['date1'];
         $date2 = @$request['date2'];
 
         // jika tidak terisi, tanggal otomatis terfilter satu bulan ini / hari ini
-        if (!isset($date1) || strlen($date1) == 0) {
+        if(!isset($date1) || strlen($date1) == 0) {
             $date1 = Date('Y-m-d');
         }
-        if (!isset($date2) || strlen($date2) == 0) {
+        if(!isset($date2) || strlen($date2) == 0) {
             $date2 = Date('Y-m-d');
         }
 
         // date2 tambah 1 hari supaya genap jadi sebulan dan bisa filter pada hari itu
-        $date2_query = Date('Y-m-d', strtotime($date2 . '+1 days'));
+        $date2_query = Date('Y-m-d', strtotime($date2.'+1 days'));
 
         //  return Absensi::find($id);
         $absensiKelas = Absensi::where('siswas.kelas_id', $id)
@@ -146,14 +145,14 @@ class KelasController extends Controller
         // deklarasi variabel array untuk simpan data absen
         $arrPresensi = array();
         // echo '<pre>';
-        foreach ($siswaKelas as $sValue) {
+        foreach($siswaKelas as $sValue) {
             // var_dump($sValue);
             $arrPresensi[$sValue->id] = array();
 
             foreach ($period as $key => $dt) {
                 $daynow = $dt->format('l');
 
-                if($daynow != 'Sunday') {
+                if($daynow != 'Sunday' && $daynow != 'Saturday') {
                     $arrPresensi[$sValue->id][] = array(
                         'tanggal' => $dt->format("Y-m-d"),
                         'datang' => null,
@@ -191,11 +190,8 @@ class KelasController extends Controller
         }
         // dd($arrPresensi);
 
-        $kelas = Kelas::where('id', $id)->first();
-        $nama_kelas = $kelas->nama_kelas;
-
         return view('dashboard.pages.kelas.showabsensi', [
-            'title' => 'Presensi Kelas ' . $nama_kelas,
+            'title' => 'Presensi Kelas',
             'active' => 'kelas',
             'id' => $id,
             'date1' => Date('d-m-Y', strtotime($date1)),

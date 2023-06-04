@@ -20,7 +20,7 @@
             foreach ($period as $dt) {
                 $daynow = $dt->format('l');
 
-                if($daynow != 'Sunday') {
+                if($daynow != 'Sunday' && $daynow != 'Saturday') {
                     echo '<th colspan="2" align="center" width="180px">'.$dt->format("d-m-Y").'</th>';
                 }
             }
@@ -32,7 +32,7 @@
         foreach ($period as $dt) {
             $daynow = $dt->format('l');
 
-            if($daynow != 'Sunday') {
+            if($daynow != 'Sunday' && $daynow != 'Saturday') {
                 echo '<th align="center" width="90px">Datang</th>';
                 echo '<th align="center" width="90px">Pulang</th>';
             }
