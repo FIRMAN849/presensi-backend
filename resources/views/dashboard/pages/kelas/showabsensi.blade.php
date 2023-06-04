@@ -58,15 +58,23 @@
                             $period = new DatePeriod($begin, $interval, $end);
 
                             foreach ($period as $dt) {
-                                echo '<th scope="col" colspan="2" class="text-center" style="min-width: 220px;">'.$dt->format("d-m-Y").'</th>';
+                                $daynow = $dt->format('l');
+
+                                if($daynow != 'Sunday') {
+                                    echo '<th scope="col" colspan="2" class="text-center" style="min-width: 220px;">'.$dt->format("d-m-Y").'</th>';
+                                }
                             }
                             ?>
                         </tr>
                         <tr>
                         <?php
                         foreach ($period as $dt) {
-                            echo '<th class="text-center">Datang</th>';
-                            echo '<th class="text-center">Pulang</th>';
+                            $daynow = $dt->format('l');
+
+                            if($daynow != 'Sunday') {
+                                echo '<th class="text-center">Datang</th>';
+                                echo '<th class="text-center">Pulang</th>';
+                            }
                         }
                         ?>
                         </tr>

@@ -57,44 +57,58 @@ class AbsensiExport implements FromView
 
         // deklarasi variabel array untuk simpan data absen
         $arrPresensi = array();
+        $totalIzin = array();
+        $totalSakit = array();
         // echo '<pre>';
         foreach($siswaKelas as $sValue) {
             // var_dump($sValue);
             $arrPresensi[$sValue->id] = array();
+            $totalIzin[$sValue->id] = 0;
+            $totalSakit[$sValue->id] = 0;
 
             foreach ($period as $key => $dt) {
-                $arrPresensi[$sValue->id][] = array(
-                    'tanggal' => $dt->format("Y-m-d"),
-                    'datang' => null,
-                    'status_datang' => null,
-                    'pulang' => null,
-                    'status_pulang' => null,
-                    'izin' => null,
-                );
+                $daynow = $dt->format('l');
 
-                // ambil data absensi berdasarkan siswa dan looping tanggal
-                $checkAbsensi = Absensi::where('siswa_id', $sValue->id)
-                    ->whereDate('tgl_absen', $dt->format("Y-m-d"))
-                    ->get();
-                foreach($checkAbsensi as $caKey => $caValue) {
-                    if($caValue->jenis_absen == 'presensi_datang') {
-                        $arrPresensi[$sValue->id][$key]['datang'] = $caValue->tgl_absen;
-                        $arrPresensi[$sValue->id][$key]['status_datang'] = $caValue->status;
+                if($daynow != 'Sunday') {
+                    $arrPresensi[$sValue->id][] = array(
+                        'tanggal' => $dt->format("Y-m-d"),
+                        'datang' => null,
+                        'status_datang' => null,
+                        'pulang' => null,
+                        'status_pulang' => null,
+                        'izin' => null,
+                    );
+
+                    // ambil data absensi berdasarkan siswa dan looping tanggal
+                    $checkAbsensi = Absensi::where('siswa_id', $sValue->id)
+                        ->whereDate('tgl_absen', $dt->format("Y-m-d"))
+                        ->get();
+                    foreach($checkAbsensi as $caKey => $caValue) {
+                        if($caValue->jenis_absen == 'presensi_datang') {
+                            $arrPresensi[$sValue->id][$key]['datang'] = $caValue->tgl_absen;
+                            $arrPresensi[$sValue->id][$key]['status_datang'] = $caValue->status;
+                        }
+                        if($caValue->jenis_absen == 'presensi_pulang') {
+                            $arrPresensi[$sValue->id][$key]['pulang'] = $caValue->tgl_absen;
+                            $arrPresensi[$sValue->id][$key]['status_pulang'] = $caValue->status;
+                        }
                     }
-                    if($caValue->jenis_absen == 'presensi_pulang') {
-                        $arrPresensi[$sValue->id][$key]['pulang'] = $caValue->tgl_absen;
-                        $arrPresensi[$sValue->id][$key]['status_pulang'] = $caValue->status;
-                    }
+
+                    // ambil data izin berdasarkan siswa dan looping tanggal
+                    $checkIzin = Izin::where('siswa_id', $sValue->id)
+                        ->where('status', 'Accept')
+                        ->whereDate('tgl_izin', $dt->format("Y-m-d"))
+                        ->get();
+                    foreach($checkIzin as $ciKey => $ciValue) {
+                        if($ciValue->keterangan == 'IZIN') {
+                            $totalIzin[$sValue->id]++;
+                        } else if($ciValue->keterangan == 'SAKIT') {
+                            $totalIzin[$sValue->id]++;
+                        }
+
+                        $arrPresensi[$sValue->id][$key]['izin'] = $ciValue->keterangan;
+                    } 
                 }
-
-                // ambil data izin berdasarkan siswa dan looping tanggal
-                $checkIzin = Izin::where('siswa_id', $sValue->id)
-                    ->where('status', 'Accept')
-                    ->whereDate('tgl_izin', $dt->format("Y-m-d"))
-                    ->get();
-                foreach($checkIzin as $ciKey => $ciValue) {
-                    $arrPresensi[$sValue->id][$key]['izin'] = $ciValue->keterangan;
-                }  
             }
         }
         // dd($arrPresensi);
@@ -105,7 +119,9 @@ class AbsensiExport implements FromView
             'nama_kelas' => $nama_kelas,
             'absensi' => $absensiKelas,
             'siswa' => $siswaKelas,
-            'presensi' => $arrPresensi
+            'presensi' => $arrPresensi,
+            'total_izin' => $totalIzin,
+            'total_sakit' => $totalSakit
         ]);
     }
 }

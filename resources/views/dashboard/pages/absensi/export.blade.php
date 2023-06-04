@@ -18,17 +18,28 @@
             $period = new DatePeriod($begin, $interval, $end);
 
             foreach ($period as $dt) {
-                echo '<th colspan="2" align="center" width="180px">'.$dt->format("d-m-Y").'</th>';
+                $daynow = $dt->format('l');
+
+                if($daynow != 'Sunday') {
+                    echo '<th colspan="2" align="center" width="180px">'.$dt->format("d-m-Y").'</th>';
+                }
             }
             ?>
+            <td align="center">Total</td>
         </tr>
         <tr>
         <?php
         foreach ($period as $dt) {
-            echo '<th align="center" width="90px">Datang</th>';
-            echo '<th align="center" width="90px">Pulang</th>';
+            $daynow = $dt->format('l');
+
+            if($daynow != 'Sunday') {
+                echo '<th align="center" width="90px">Datang</th>';
+                echo '<th align="center" width="90px">Pulang</th>';
+            }
         }
         ?>
+            <td align="center">Izin</td>
+            <td align="center">Sakit</td>
         </tr>
     </thead>
     <tbody>
@@ -67,6 +78,8 @@
                     }
                 }
                 ?>
+                <td align="center">{{ $total_izin[$i->id] }}</td>
+                <td align="center">{{ $total_sakit[$i->id] }}</td>
             </tr>
         @endforeach
 
