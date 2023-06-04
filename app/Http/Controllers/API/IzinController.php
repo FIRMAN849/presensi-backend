@@ -28,7 +28,7 @@ class IzinController extends Controller
             'siswa_id' => 'required|exists:siswas,id',
             'kelas_id' => 'required|exists:kelas,id',
             'tgl_izin' => 'required',
-            'image' => 'required|mimes:jpeg,png,jpg,gif|max:1024',
+            'image' => 'required|mimes:jpeg,png,jpg,gif',
             'keterangan' => 'required', // IZIN,SAKIT
             'alasan' => 'required'
         ]);
@@ -80,7 +80,7 @@ class IzinController extends Controller
         // ambil data dari parameter get
         // $siswa_id = $request['siswa_id'];
 
-        if(strlen($siswa_id) == 0) {
+        if (strlen($siswa_id) == 0) {
             return ResponseFormatter::error(
                 null,
                 'ID Siswa tidak valid'
