@@ -171,8 +171,10 @@ class SiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Siswa $siswa)
     {
-        //
+        $user = User::find($siswa->user_id);
+        $user->delete();
+        return redirect('/siswa')->with('success', 'Berhasil Hapus siswa');
     }
 }

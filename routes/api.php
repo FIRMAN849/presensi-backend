@@ -34,7 +34,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('izin/history/{id}', [IzinController::class, 'history']);
 
     Route::get('jadwal', [JadwalController::class, 'schedules']);
-    
+    Route::get('jadwal/{id}', [JadwalController::class, 'getjadwal']);
+
     Route::post('presensi', [AbsensiController::class, 'presensi']);
     Route::get('presensi/history/{id}', [AbsensiController::class, 'history']);
 });

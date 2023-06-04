@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller as ControllersController;
 use App\Helpers\ResponseFormatter;
 use App\Models\Izin;
 use App\Models\Jadwal;
+use App\Models\Kelas;
 use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -59,5 +60,34 @@ class JadwalController extends ControllersController
             $schedule_list,
             'Data Jadwal berhasil diambil'
         );
+    }
+
+    public function getjadwal($kelas_id)
+    {
+
+        // $kelas_id = $request['siswa_id'];
+
+        if (strlen($kelas_id) == 0) {
+            return ResponseFormatter::error(
+                null,
+                'Id kelas tidak valid'
+            );
+        }
+
+        $history_data = Jadwal::where('kelas_id', $kelas_id)->get();
+        // dd($history_data);
+
+        return ResponseFormatter::success(
+            $history_data,
+            'Berhasil mengambil data Jadwal'
+        );
+
+        // $response = [
+        //     'status' => 'success',
+        //     'message' => 'Data retrieved successfully',
+        //     'data' => $history_data,
+        // ];
+
+        // return response()->json($response);
     }
 }
