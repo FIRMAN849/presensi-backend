@@ -42,7 +42,7 @@ class UserController extends ControllersController
 
             $siswa = DB::table('siswas')->where('user_id', $user['id']);
             // cek user jika ada di data siswa
-            if($siswa->count() == 0) {
+            if ($siswa->count() == 0) {
                 return ResponseFormatter::error(null, 'Username / Password Salah', 500);
             } else {
                 // jika ada
@@ -139,7 +139,7 @@ class UserController extends ControllersController
             'alamat' => 'required',
             'tgl_lahir' => 'required',
             'email' => 'required|email',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif',
         ]);
 
         if ($user->siswa) {
