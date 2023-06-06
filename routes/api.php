@@ -39,3 +39,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('presensi', [AbsensiController::class, 'presensi']);
     Route::get('presensi/history/{id}', [AbsensiController::class, 'history']);
 });
+// password success reset
+Route::get('/password-success-reset', function () {
+    return view('auth.passwords.success-reset');
+})->middleware(['auth', 'verified']);
+
+Route::get('/password/reset/{token}', [ForgotPasswordController::class, 'resetPasswordForm'])->name('password.reset');

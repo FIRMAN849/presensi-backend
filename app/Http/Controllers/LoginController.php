@@ -48,6 +48,8 @@ class LoginController extends Controller
 
 
             // dd($request);
+        } else {
+            return back()->with('loginError', 'Username / Password Salah');
         }
         // return back()->with('loginError', 'Login Failed!');
     }

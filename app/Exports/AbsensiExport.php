@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Exports;
 
-use Request;
+use Illuminate\Http\Request;
+
 use App\Models\Kelas;
 use App\Models\Siswa;
 use App\Models\Izin;
@@ -21,15 +23,15 @@ class AbsensiExport implements FromView
         $date2 = @$request['date2'];
 
         // jika tidak terisi, tanggal otomatis terfilter satu bulan ini / hari ini
-        if(!isset($date1) || strlen($date1) == 0) {
+        if (!isset($date1) || strlen($date1) == 0) {
             $date1 = Date('Y-m-d');
         }
-        if(!isset($date2) || strlen($date2) == 0) {
+        if (!isset($date2) || strlen($date2) == 0) {
             $date2 = Date('Y-m-d');
         }
 
         // date2 tambah 1 hari supaya genap jadi sebulan dan bisa filter pada hari itu
-        $date2_query = Date('Y-m-d', strtotime($date2.'+1 days'));
+        $date2_query = Date('Y-m-d', strtotime($date2 . '+1 days'));
 
         //  return Absensi::find($id);
         $absensiKelas = Absensi::where('siswas.kelas_id', $id)
@@ -60,7 +62,7 @@ class AbsensiExport implements FromView
         $totalIzin = array();
         $totalSakit = array();
         // echo '<pre>';
-        foreach($siswaKelas as $sValue) {
+        foreach ($siswaKelas as $sValue) {
             // var_dump($sValue);
             $arrPresensi[$sValue->id] = array();
             $totalIzin[$sValue->id] = 0;
@@ -69,7 +71,7 @@ class AbsensiExport implements FromView
             foreach ($period as $key => $dt) {
                 $daynow = $dt->format('l');
 
-                if($daynow != 'Sunday' && $daynow != 'Saturday') {
+                if ($daynow != 'Sunday' && $daynow != 'Saturday') {
                     $arrPresensi[$sValue->id][] = array(
                         'tanggal' => $dt->format("Y-m-d"),
                         'datang' => null,
@@ -83,12 +85,12 @@ class AbsensiExport implements FromView
                     $checkAbsensi = Absensi::where('siswa_id', $sValue->id)
                         ->whereDate('tgl_absen', $dt->format("Y-m-d"))
                         ->get();
-                    foreach($checkAbsensi as $caKey => $caValue) {
-                        if($caValue->jenis_absen == 'presensi_datang') {
+                    foreach ($checkAbsensi as $caKey => $caValue) {
+                        if ($caValue->jenis_absen == 'presensi_datang') {
                             $arrPresensi[$sValue->id][$key]['datang'] = $caValue->tgl_absen;
                             $arrPresensi[$sValue->id][$key]['status_datang'] = $caValue->status;
                         }
-                        if($caValue->jenis_absen == 'presensi_pulang') {
+                        if ($caValue->jenis_absen == 'presensi_pulang') {
                             $arrPresensi[$sValue->id][$key]['pulang'] = $caValue->tgl_absen;
                             $arrPresensi[$sValue->id][$key]['status_pulang'] = $caValue->status;
                         }
@@ -99,15 +101,15 @@ class AbsensiExport implements FromView
                         ->where('status', 'Accept')
                         ->whereDate('tgl_izin', $dt->format("Y-m-d"))
                         ->get();
-                    foreach($checkIzin as $ciKey => $ciValue) {
-                        if($ciValue->keterangan == 'IZIN') {
+                    foreach ($checkIzin as $ciKey => $ciValue) {
+                        if ($ciValue->keterangan == 'IZIN') {
                             $totalIzin[$sValue->id]++;
-                        } else if($ciValue->keterangan == 'SAKIT') {
+                        } else if ($ciValue->keterangan == 'SAKIT') {
                             $totalIzin[$sValue->id]++;
                         }
 
                         $arrPresensi[$sValue->id][$key]['izin'] = $ciValue->keterangan;
-                    } 
+                    }
                 }
             }
         }

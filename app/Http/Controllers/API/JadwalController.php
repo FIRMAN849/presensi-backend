@@ -74,11 +74,31 @@ class JadwalController extends ControllersController
             );
         }
 
-        $history_data = Jadwal::where('kelas_id', $kelas_id)->get();
+        // $history_data = Jadwal::where('kelas_id', $kelas_id)->get();
         // dd($history_data);
 
+        $history_data = jadwal::with('kelas', 'mapel', 'guru')
+            ->where('kelas_id', $kelas_id)
+            ->orderBy('hari', 'desc')
+            ->orderBy('jam_awal')
+            ->get();
+
+        $schedule_list = [];
+        foreach ($history_data as $schedule) {
+            $schedule_dict = [
+                'id' => $schedule->id,
+                'hari' => $schedule->hari,
+                'mapel_id' => $schedule->mapel->nama_mapel,
+                'guru_id' => $schedule->guru->nama_guru,
+                'kelas_id' => $schedule->kelas->nama_kelas,
+                'jam_awal' => $schedule->jam_awal,
+                'jam_akhir' => $schedule->jam_akhir,
+            ];
+            $schedule_list[] = $schedule_dict;
+        }
+
         return ResponseFormatter::success(
-            $history_data,
+            $schedule_list,
             'Berhasil mengambil data Jadwal'
         );
 
