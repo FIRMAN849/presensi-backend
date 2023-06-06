@@ -98,7 +98,6 @@
                             <th>Jenis Absen</th>
                             <th>Waktu</th>
                             <th>Status</th>
-                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -114,15 +113,6 @@
                                     @else
                                         <span class="badge bg-success">{{ $i->status }}</span>
                                     @endif
-                                </td>
-                                <td valign="top">
-                                    <form action="/absensi/{{ $i->id }}" method="POST" class="d-inline">
-                                        @method('delete')
-                                        @csrf
-                                        <button class="btn btn-danger btn-sm border-0"
-                                            onclick="return confirm('Are you sure?')"><i
-                                                class="bx bx-trash"></i></button>
-                                    </form>
                                 </td>
                             </tr>
                         @endforeach
