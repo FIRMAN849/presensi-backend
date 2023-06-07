@@ -70,6 +70,7 @@
                     <tr>
                         <th>#</th>
                         <th>Nama</th>
+                        <th>Kelas</th>
                         <th>Jenis Absen</th>
                         <th>Waktu</th>
                         <th>Status</th>
@@ -81,6 +82,7 @@
                         <tr>
                             <td valign="top">{{ $loop->iteration }}</td>
                             <td valign="top">{{ $i->siswa->user->nama }}</td>
+                            <td valign="top">{{ $i->siswa->kelas->nama_kelas }}</td>
                             <td valign="top">{{ ucwords(str_replace('_', ' ', $i->jenis_absen)) }}</td>
                             <td valign="top">{{ $i->tgl_absen }}</td>
                             <td valign="top">
