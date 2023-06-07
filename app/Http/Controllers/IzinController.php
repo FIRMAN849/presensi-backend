@@ -64,7 +64,7 @@ class IzinController extends Controller
     public function edit(Izin $izin)
     {
         return view('dashboard.pages.izin.edit', [
-            'title' => 'Edit Siswa',
+            'title' => 'Edit Izin',
             'active' => 'izin',
             'izin' => $izin,
             'categories' => Kelas::all(),

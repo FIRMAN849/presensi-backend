@@ -32,7 +32,8 @@
                         </div>
                         <div class="mb-3">
                             <label class="col-form-label-sm">Keterangan</label>
-                            <input type="text" class="form-control form-control-sm" id="keterangan" name="keterangan" value="{{ $izin->keterangan }}" disabled>
+                            <input type="text" class="form-control form-control-sm" id="keterangan" name="keterangan"
+                                value="{{ $izin->keterangan }}" disabled>
                         </div>
                         <div class="mb-3">
                             <label class="col-form-label-sm">Alasan</label>
@@ -42,6 +43,7 @@
                             <label class="col-form-label-sm">Status</label>
                             <select class="form-select" name="status">
                                 <option value="Pending">Pending</option>
+                                <option value="Ditolak">Ditolak</option>
                                 <option value="Accept">Accept</option>
                             </select>
                         </div>

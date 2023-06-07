@@ -123,8 +123,10 @@ class JadwalController extends Controller
      * @param  \App\Models\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Jadwal $jadwal)
+    public function destroy($id)
     {
-        //
+        $jadwal = Jadwal::find($id);
+        $jadwal->delete();
+        return redirect('/jadwal')->with('success', 'Berhasil menghapus jadwal');
     }
 }

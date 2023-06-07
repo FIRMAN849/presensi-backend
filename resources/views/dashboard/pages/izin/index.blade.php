@@ -39,6 +39,8 @@
                             <td valign="top">{{ $i->alasan }}</td>
                             <td valign="top">
                                 @if ($i->status == 'Pending')
+                                    <span class="badge bg-warning">{{ $i->status }}</span>
+                                @elseif ($i->status == 'Ditolak')
                                     <span class="badge bg-danger">{{ $i->status }}</span>
                                 @else
                                     <span class="badge bg-success">{{ $i->status }}</span>

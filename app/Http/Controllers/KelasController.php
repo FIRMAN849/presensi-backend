@@ -192,8 +192,12 @@ class KelasController extends Controller
         }
         // dd($arrPresensi);
 
+        // ambil data nama kelas
+        $kelas = Kelas::where('id', $id)->first();
+        $nama_kelas = $kelas->nama_kelas;
+
         return view('dashboard.pages.kelas.showabsensi', [
-            'title' => 'Presensi Kelas',
+            'title' => 'Presensi Kelas ' . $nama_kelas,
             'active' => 'kelas',
             'id' => $id,
             'date1' => Date('d-m-Y', strtotime($date1)),

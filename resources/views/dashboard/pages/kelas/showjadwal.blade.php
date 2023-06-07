@@ -7,12 +7,12 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                        <th scope="col">Handle</th>
-                        <th scope="col">Handle</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">Hari</th>
+                        <th scope="col">Nama mapel</th>
+                        <th scope="col">Guru</th>
+                        <th scope="col">Kelas</th>
+                        <th scope="col">Jam_awal</th>
+                        <th scope="col">Jam_Akhir</th>
                     </tr>
                 </thead>
                 <tbody>

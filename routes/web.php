@@ -35,6 +35,8 @@ Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::post('/', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/presensismkn2kraksaan', [RiwayatController::class, 'index']);
+Route::get('/presensismkn2kraksaan/absensi/{id}', [RiwayatController::class, 'absensi']);
+
 
 
 
