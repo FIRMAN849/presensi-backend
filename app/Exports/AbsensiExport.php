@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use Illuminate\Http\Request;
+use Request;
 
 use App\Models\Kelas;
 use App\Models\Siswa;
@@ -61,12 +61,14 @@ class AbsensiExport implements FromView
         $arrPresensi = array();
         $totalIzin = array();
         $totalSakit = array();
+        $totalAlpha = array();
         // echo '<pre>';
         foreach ($siswaKelas as $sValue) {
             // var_dump($sValue);
             $arrPresensi[$sValue->id] = array();
             $totalIzin[$sValue->id] = 0;
             $totalSakit[$sValue->id] = 0;
+            $totalAlpha[$sValue->id] = 0;
 
             foreach ($period as $key => $dt) {
                 $daynow = $dt->format('l');
@@ -99,9 +101,9 @@ class AbsensiExport implements FromView
                     // ambil data izin berdasarkan siswa dan looping tanggal
                     $checkIzin = Izin::where('siswa_id', $sValue->id)
                         ->where('status', 'Accept')
-                        ->whereDate('tgl_izin', $dt->format("Y-m-d"))
-                        ->get();
-                    foreach ($checkIzin as $ciKey => $ciValue) {
+                        ->whereDate('tgl_izin', $dt->format("Y-m-d"));
+
+                    foreach ($checkIzin->get() as $ciKey => $ciValue) {
                         if ($ciValue->keterangan == 'IZIN') {
                             $totalIzin[$sValue->id]++;
                         } else if ($ciValue->keterangan == 'SAKIT') {
@@ -109,6 +111,11 @@ class AbsensiExport implements FromView
                         }
 
                         $arrPresensi[$sValue->id][$key]['izin'] = $ciValue->keterangan;
+                    }
+
+                    // cek jika masuk atau tidak dan tidak ada izin
+                    if($checkIzin->count() == 0 && $checkAbsensi->count() == 0) {
+                        $totalAlpha[$sValue->id]++;
                     }
                 }
             }
@@ -123,7 +130,8 @@ class AbsensiExport implements FromView
             'siswa' => $siswaKelas,
             'presensi' => $arrPresensi,
             'total_izin' => $totalIzin,
-            'total_sakit' => $totalSakit
+            'total_sakit' => $totalSakit,
+            'total_alpha' => $totalAlpha
         ]);
     }
 }
