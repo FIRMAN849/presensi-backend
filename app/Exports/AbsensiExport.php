@@ -2,7 +2,8 @@
 
 namespace App\Exports;
 
-use Request;
+// use Request;
+use Illuminate\Support\Facades\Request;
 
 use App\Models\Kelas;
 use App\Models\Siswa;
@@ -114,7 +115,7 @@ class AbsensiExport implements FromView
                     }
 
                     // cek jika masuk atau tidak dan tidak ada izin
-                    if($checkIzin->count() == 0 && $checkAbsensi->count() == 0) {
+                    if ($checkIzin->count() == 0 && $checkAbsensi->count() == 0) {
                         $totalAlpha[$sValue->id]++;
                     }
                 }
