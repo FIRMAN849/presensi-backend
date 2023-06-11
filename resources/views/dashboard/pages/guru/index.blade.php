@@ -24,6 +24,7 @@
                         <th>Nama Guru</th>
                         <th>Jenis Kelamin</th>
                         <th>Alamat</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,6 +35,14 @@
                             <td>{{ $gr->nama_guru }}</td>
                             <td>{{ $gr->jenis_kelamin }}</td>
                             <td>{{ $gr->alamat }}</td>
+                            <td>
+                                <form action="/guru/{{ $gr->id }}" method="POST" class="d-inline">
+                                    @method('delete')
+                                    @csrf
+                                    <button class="btn btn-danger btn-sm border-0"
+                                        onclick="return confirm('Are you sure?')">Hapus</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

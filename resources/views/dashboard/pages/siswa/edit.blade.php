@@ -43,7 +43,7 @@
                             <label class="col-form-label-sm">Kelas</label>
                             <select class="form-select" name="kelas">
                                 @foreach ($categories as $kelas)
-                                    @if (old('kelas') === $kelas->id)
+                                    @if (old('kelas_id', $students->kelas_id) === $kelas->id)
                                         <option value="{{ $kelas->id }}" selected>{{ $kelas->nama_kelas }}</option>
                                     @else
                                         <option value="{{ $kelas->id }}">{{ $kelas->nama_kelas }}</option>
@@ -68,8 +68,10 @@
                         <div class="mb-3">
                             <label class="col-form-label-sm">Jenis Kelamin</label>
                             <select class="form-select" name="jenis_kelamin">
-                                <option value="Laki-Laki">Laki-Laki</option>
-                                <option value="Perempuan">Perempuan</option>
+                                <option value="Laki-Laki" {{ $students->jenis_kelamin == 'Laki-Laki' ? 'selected' : '' }}>
+                                    Laki-Laki</option>
+                                <option value="Perempuan" {{ $students->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>
+                                    Perempuan</option>
                             </select>
                         </div>
                         <div class="mb-3">

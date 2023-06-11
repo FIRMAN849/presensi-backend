@@ -102,7 +102,14 @@ class JadwalController extends Controller
      */
     public function edit(Jadwal $jadwal)
     {
-        //
+        return view('dashboard.pages.jadwal.edit', [
+            'title' => 'Edit Jadwal',
+            'active' => 'jadwal',
+            'mapel' => Mapel::all(),
+            'guru' => Guru::all(),
+            'categories' => Kelas::all(),
+            'jadwal' => $jadwal
+        ]);
     }
 
     /**
@@ -114,7 +121,23 @@ class JadwalController extends Controller
      */
     public function update(Request $request, Jadwal $jadwal)
     {
-        //
+        $request->validate([
+            'hari' => 'required',
+            'mapel_id' => 'required',
+            'kelas_id' => 'required',
+            'guru_id' => 'required',
+            'jam_awal' => 'required ',
+            'jam_akhir' => 'required',
+        ]);
+        $jadwal->update([
+            'hari' => $request->input('hari'),
+            'kelas_id' => $request->input('kelas_id'),
+            'mapel_id' => $request->input('mapel_id'),
+            'guru_id' => $request->input('guru_id'),
+            'jam_awal' => $request->input('jam_awal'),
+            'jam_akhir' => $request->input('jam_akhir')
+        ]);
+        return redirect('/jadwal')->with('success', 'Berhasil mengubah jadwal');
     }
 
     /**

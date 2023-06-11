@@ -68,10 +68,6 @@ class SiswaController extends Controller
             'password' => 'required|min:5',
             'nis' => 'required|unique:siswas,nis',
             'kelas' => 'required',
-            'tgl_lahir' => 'required',
-            'alamat' => 'required',
-            'jenis_kelamin' => 'required',
-            'email' => 'required|email|unique:siswas,email',
         ]);
 
 
@@ -140,10 +136,6 @@ class SiswaController extends Controller
             'password' => 'required|min:5',
             'nis' => 'required|unique:siswas,nis,' . $siswa->id,
             'kelas' => 'required',
-            'tgl_lahir' => 'required',
-            'alamat' => 'required',
-            'jenis_kelamin' => 'required',
-            'email' => 'required|email|unique:siswas,email,' . $siswa->id,
         ]);
 
         $user = User::find($siswa->user_id);

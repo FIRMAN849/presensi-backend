@@ -18,10 +18,10 @@ class CreateSiswaTable extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('nis');
             $table->foreignId('kelas_id')->constrained('kelas')->onDelete('cascade');
-            $table->date('tgl_lahir')->format('dd/mm/yyyy');
-            $table->string('alamat');
+            $table->date('tgl_lahir')->nullable();
+            $table->string('alamat')->nullable();
             $table->string('jenis_kelamin');
-            $table->string('email')->unique();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }

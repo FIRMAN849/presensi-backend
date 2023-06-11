@@ -51,36 +51,60 @@
         </div>
 
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-            const navbar = document.querySelector('.col-navbar')
-            const cover = document.querySelector('.screen-cover')
 
-            const sidebar_items = document.querySelectorAll('.sidebar-item')
-
-            function toggleNavbar() {
-                navbar.classList.toggle('d-none')
-                cover.classList.toggle('d-none')
-            }
-
-            function toggleActive(e) {
-                sidebar_items.forEach(function(v, k) {
-                    v.classList.remove('active')
-                })
-                e.closest('.sidebar-item').classList.add('active')
-
-            }
-
-            $(document).ready(function() {
-                $("#date1").datepicker({
-                    dateFormat: "dd-mm-yy"
-                });
-                $("#date2").datepicker({
-                    dateFormat: "dd-mm-yy"
-                });
-            });
-        </script>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        const navbar = document.querySelector('.col-navbar')
+        const cover = document.querySelector('.screen-cover')
+
+        const sidebar_items = document.querySelectorAll('.sidebar-item')
+
+        function toggleNavbar() {
+            navbar.classList.toggle('d-none')
+            cover.classList.toggle('d-none')
+        }
+
+        function toggleActive(e) {
+            sidebar_items.forEach(function(v, k) {
+                v.classList.remove('active')
+            })
+            e.closest('.sidebar-item').classList.add('active')
+
+        }
+
+        $(document).ready(function() {
+            $("#date1").datepicker({
+                dateFormat: "dd-mm-yy"
+            });
+            $("#date2").datepicker({
+                dateFormat: "dd-mm-yy"
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#table_kelas').DataTable({
+                ordering: false,
+                responsive: true
+            });
+        });
+
+        function previewImage() {
+            const image = document.querySelector('#image');
+            const imgPreview = document.querySelector('.img-preview');
+
+            imgPreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                imgPreview.src = oFREvent.target.result;
+            }
+        }
+    </script>
+
 
     <!-- Optional JavaScript; choose one of the two! -->
 

@@ -20,18 +20,6 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         User::create([
-            'nama' => 'Firman',
-            'username' => '12345',
-            // 'kelas' => 'X RPL 3',
-            // 'tgl_lahir' => '2000-01-01',
-            // 'alamat' => 'kraksaan',
-            // 'jenis_kelamin' => 'laki-laki',
-            // 'email' => 'firmanrizky015@gmail.com',
-            'image' => 'par.jpg',
-            'role' => 'user',
-            'password' => bcrypt('12345'),
-        ]);
-        User::create([
             'nama' => 'ADMIN',
             'username' => 'admin',
             // 'kelas' => 'X RPL 3',
@@ -39,7 +27,7 @@ class DatabaseSeeder extends Seeder
             // 'alamat' => 'kraksaan',
             // 'jenis_kelamin' => 'laki-laki',
             // 'email' => 'admin@gmail.com',
-            'image' => 'par.jpg',
+            'image' => 'default.png',
             'role' => 'admin',
             'password' => bcrypt('admin'),
         ]);
@@ -69,13 +57,6 @@ class DatabaseSeeder extends Seeder
         Mapel::create([
             'nama_mapel' => 'Bahasa Indonesia',
             'kode_mapel' => 'bhs01'
-        ]);
-
-        Guru::create([
-            'nama_guru' => 'Ririn.Spd',
-            'nip' => '123',
-            'jenis_kelamin' => 'Perempuan',
-            'alamat' => 'Bulu'
         ]);
     }
 }

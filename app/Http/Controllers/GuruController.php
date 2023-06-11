@@ -44,9 +44,8 @@ class GuruController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nip' => 'required|unique:gurus,nip',
+            'nip' => '',
             'nama_guru' => 'required',
-            'alamat' => 'required',
             'jenis_kelamin' => ''
         ]);
 
@@ -97,8 +96,10 @@ class GuruController extends Controller
      * @param  \App\Models\Guru  $guru
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Guru $guru)
+    public function destroy($id)
     {
-        //
+        $guru = Guru::find($id);
+        $guru->delete();
+        return redirect('/guru')->with('success', 'Berhasil menghapus guru');
     }
 }

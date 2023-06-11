@@ -52,14 +52,8 @@
                         </div>
                         <div class="mb-3">
                             <label class="col-form-label-sm">Tanggal Lahir</label>
-                            <input type="date"
-                                class="form-control form-control-sm @error('tgl_lahir') is-invalid @enderror" id="tgl_lahir"
-                                name="tgl_lahir" value="{{ old('tgl_lahir') }}">
-                            @error('tgl_lahir')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                            <input type="date" class="form-control form-control-sm" id="tgl_lahir" name="tgl_lahir"
+                                value="{{ old('tgl_lahir') }}">
                         </div>
 
                     </div>
@@ -73,23 +67,13 @@
                         </div>
                         <div class="mb-3">
                             <label class="col-form-label-sm">Alamat</label>
-                            <textarea class="form-control form-control-sm @error('alamat') is-invalid @enderror" id="alamat" name="alamat"
-                                value="{{ old('alamat') }}"></textarea>
-                            @error('alamat')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                            <textarea class="form-control form-control-sm" id="alamat" name="alamat" value="{{ old('alamat') }}"></textarea>
                         </div>
                         <div class="mb-3">
                             <label class="col-form-label-sm">Email</label>
-                            <input type="email" class="form-control form-control-sm @error('email') is-invalid @enderror"
-                                id="email" name="email" value="{{ old('email') }}">
-                            @error('email')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                            <input type="email" class="form-control form-control-sm" id="email" name="email"
+                                value="{{ old('email') }}">
+
                         </div>
                         {{-- <div class="mb-3">
                             <label for="image" class="col-form-label-sm">Image</label>
