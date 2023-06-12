@@ -46,6 +46,7 @@ Route::resource('/siswa', SiswaController::class)->middleware('auth');
 Route::resource('/kelas', KelasController::class)->middleware('auth');
 Route::get('/kelas/siswa/{id}', [KelasController::class, 'siswa'])->name('kelas.siswa')->middleware('auth');
 Route::get('/kelas/jadwal/{id}', [KelasController::class, 'jadwal'])->name('kelas.jadwal')->middleware('auth');
+Route::get('/kelas/siswa/{id}/export', [KelasController::class, 'cetakAkun'])->middleware('auth');
 Route::get('/kelas/absensi/{id}', [KelasController::class, 'absensi'])->name('kelas.absensi')->middleware('auth');
 Route::resource('/mapel', MapelController::class)->middleware('auth');
 Route::resource('/guru', GuruController::class)->middleware('auth');
@@ -56,4 +57,3 @@ Route::get('/qrcode/datang', [QrcodeController::class, 'datang'])->name('qrcode.
 Route::get('/qrcode/pulang', [QrcodeController::class, 'pulang'])->name('qrcode.pulang')->middleware('auth');
 Route::get('/absensi', [AbsensiController::class, 'index'])->middleware('auth');
 Route::get('/absensi/export', [AbsensiController::class, 'export'])->middleware('auth');
-Route::get('/kelas/siswa/{id}/export', [KelasController::class, 'cetakAkun'])->middleware('auth');

@@ -108,7 +108,7 @@ class AbsensiExport implements FromView
                         if ($ciValue->keterangan == 'IZIN') {
                             $totalIzin[$sValue->id]++;
                         } else if ($ciValue->keterangan == 'SAKIT') {
-                            $totalIzin[$sValue->id]++;
+                            $totalSakit[$sValue->id]++;
                         }
 
                         $arrPresensi[$sValue->id][$key]['izin'] = $ciValue->keterangan;
