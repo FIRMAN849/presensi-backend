@@ -10,18 +10,23 @@
                         <div class="mb-3">
                             <label class="col-form-label-sm">Hari</label>
                             <select class="form-select" name="hari">
-                                <option value="Senin">Senin</option>
-                                <option value="Selasa">Selasa</option>
-                                <option value="Rabu">Rabu</option>
-                                <option value="Kamis">Kamis</option>
-                                <option value="Jum'at">Jum'at</option>
+                                <option value="Senin" {{ old('hari') == 'Senin' ? 'selected' : '' }}>Senin
+                                </option>
+                                <option value="Selasa" {{ old('hari') == 'Selasa' ? 'selected' : '' }}>Selasa
+                                </option>
+                                <option value="Rabu" {{ old('hari') == 'Rabu' ? 'selected' : '' }}>Rabu
+                                </option>
+                                <option value="Kamis" {{ old('hari') == 'Kamis' ? 'selected' : '' }}>Kamis
+                                </option>
+                                <option value="Jumat" {{ old('hari') == 'Jumat' ? 'selected' : '' }}>Jum'at
+                                </option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label class="col-form-label-sm">Mapel</label>
                             <select class="form-select" name="mapel_id">
                                 @foreach ($mapel as $m)
-                                    @if (old('m') === $m->id)
+                                    @if (old('mapel_id') == $m->id)
                                         <option value="{{ $m->id }}" selected>{{ $m->nama_mapel }}</option>
                                     @else
                                         <option value="{{ $m->id }}">{{ $m->nama_mapel }}</option>
@@ -46,7 +51,7 @@
                             <label class="col-form-label-sm">Kelas</label>
                             <select class="form-select" name="kelas_id">
                                 @foreach ($categories as $kelas)
-                                    @if (old('kelas') === $kelas->id)
+                                    @if (old('kelas_id') == $kelas->id)
                                         <option value="{{ $kelas->id }}" selected>{{ $kelas->nama_kelas }}</option>
                                     @else
                                         <option value="{{ $kelas->id }}">{{ $kelas->nama_kelas }}</option>
@@ -58,7 +63,7 @@
                             <label class="col-form-label-sm">Guru</label>
                             <select class="form-select" name="guru_id">
                                 @foreach ($guru as $g)
-                                    @if (old('guru') === $g->id)
+                                    @if (old('guru_id') == $g->id)
                                         <option value="{{ $g->id }}" selected>{{ $g->nama_guru }}</option>
                                     @else
                                         <option value="{{ $g->id }}">{{ $g->nama_guru }}</option>
@@ -80,7 +85,7 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%">TAMBAH</button>
-                <a href="/user" class="btn btn-danger mt-2" style="width: 100%">
+                <a href="/jadwal" class="btn btn-danger mt-2" style="width: 100%">
                     Batal
                 </a>
             </form>

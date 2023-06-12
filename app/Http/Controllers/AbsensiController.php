@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Absensi;
 use App\Models\Kelas;
-// use Request;
-use Illuminate\Http\Request;
+use Request;
+// use Illuminate\Http\Request;
 
 use App\Exports\AbsensiExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -13,9 +13,9 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class AbsensiController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        // $request = Request::all();
+        $request = Request::all();
         // dd($request);
 
         $date1 = @$request['date1'];
@@ -57,9 +57,9 @@ class AbsensiController extends Controller
         ]);
     }
 
-    public function export(Request $request)
+    public function export()
     {
-        // $request = Request::all();
+        $request = Request::all();
 
         // ambil data dari parameter get
         $id = $request['id'];

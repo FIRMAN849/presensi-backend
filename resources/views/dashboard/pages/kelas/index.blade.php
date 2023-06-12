@@ -21,7 +21,7 @@
                     <tr>
                         <th width="30px">#</th>
                         <th>Nama</th>
-                        <th width="240px">Aksi</th>
+                        <th width="400px">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +31,8 @@
                             <td>{{ $kls->nama_kelas }}</td>
                             <td>
                                 <a href="/kelas/siswa/{{ $kls->id }}" class="btn btn-warning btn-sm">Siswa</a>
+                                <a href="/kelas/siswa/{{ $kls->id }}/export" class="btn btn-secondary btn-sm">Cetak
+                                    Akun</a>
                                 <a href="/kelas/jadwal/{{ $kls->id }}" class="btn btn-primary btn-sm">Jadwal</a>
                                 <a href="/kelas/absensi/{{ $kls->id }}" class="btn btn-info btn-sm">Presensi</a>
                             </td>

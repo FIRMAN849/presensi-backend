@@ -81,12 +81,35 @@ class KelasController extends Controller
         //     ->orderBy('users.nama')
         //     ->get();
 
+        $kelas = Kelas::find($id);
 
 
         return view('dashboard.pages.kelas.showsiswa', [
             'title' => 'Siswa',
             'active' => 'kelas',
+            'kelas' => $kelas,
             'students' => $siswa
+        ]);
+    }
+
+    public function cetakAkun($id)
+    {
+        $nama = 'asc';
+        $siswa = Siswa::join('users', 'siswas.user_id', '=', 'users.id')
+            ->where('siswas.kelas_id', $id)
+            ->orderBy('users.nama', $nama)
+            ->get();
+
+        // ambil data nama kelas
+        $kelas = Kelas::where('id', $id)->first();
+        $nama_kelas = $kelas->nama_kelas;
+
+        return view('dashboard.pages.kelas.exportakun', [
+            'title' => 'Cetak Akun ' . $nama_kelas,
+            'active' => 'kelas',
+            'students' => $siswa,
+            'nama_kelas' => $nama_kelas
+
         ]);
     }
 

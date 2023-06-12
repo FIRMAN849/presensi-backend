@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%">TAMBAH</button>
-                <a href="/user" class="btn btn-danger mt-2" style="width: 100%">
+                <a href="/guru" class="btn btn-danger mt-2" style="width: 100%">
                     Batal
                 </a>
             </form>
