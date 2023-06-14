@@ -73,13 +73,13 @@ class RiwayatController extends Controller
                 $daynow = $dt->format('l');
 
                 if ($daynow != 'Sunday' && $daynow != 'Saturday') {
-                    $arrPresensi[$sValue->id][] = array(
+                    $arrPresensi[$sValue->id][$key] = array(
                         'tanggal' => $dt->format("Y-m-d"),
-                        'datang' => null,
-                        'status_datang' => null,
-                        'pulang' => null,
-                        'status_pulang' => null,
-                        'izin' => null,
+                        'datang' => '',
+                        'status_datang' => '',
+                        'pulang' => '',
+                        'status_pulang' => '',
+                        'izin' => '',
                     );
 
                     // ambil data absensi berdasarkan siswa dan looping tanggal
@@ -109,6 +109,8 @@ class RiwayatController extends Controller
             }
         }
         // dd($arrPresensi);
+
+        // ambil data nama kelas
         $kelas = Kelas::where('id', $id)->first();
         $nama_kelas = $kelas->nama_kelas;
 

@@ -52,7 +52,7 @@
                 <?php
                 // loop data presensi setiap user
                 echo '<pre>';
-                foreach ($presensi[$i->id] as $pKey => $pValue) {
+                foreach ((array) $presensi[$i->id] as $pKey => $pValue) {
                     $datang = '';
                     $pulang = '';
 

@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
     <title>{{ $title }}</title>
+
 </head>
 
 <body>
@@ -35,7 +36,7 @@
             @endphp
         @endif
 
-        <div class="mt-5 mb-5">
+        <div class="mb-5 mt-5">
             <h3><b>{{ $title }}</b></h3>
         </div>
 
@@ -112,8 +113,8 @@
                                     <td valign="top">{{ $i->user->nama }}</td>
                                     <?php
                                     // loop data presensi setiap user
-                                    echo '<pre>';
-                                    foreach ($presensi[$i->id] as $pKey => $pValue) {
+                                    // echo '<pre>';
+                                    foreach ((array) $presensi[$i->id] as $pKey => $pValue) {
                                         $datang = '';
                                         $pulang = '';
 
@@ -130,11 +131,7 @@
 
                                         // cek jika ada izin di tanggal itu, maka kolom di colspan
                                         if (strlen($pValue['izin']) > 0) {
-                                            echo '<td valign="top" colspan="2" align="center">
-                                                                                                                                                                                                                                                                                                                                                    <span class="badge bg-info">' .
-                                                $pValue['izin'] .
-                                                '</span>
-                                                                                                                                                                                                                                                                                                                                                </td>';
+                                            echo '<td valign="top" colspan="2" align="center"><span class="badge bg-info">' . $pValue['izin'] . '</span></td>';
                                         } else {
                                             echo '<td valign="top">' . $datang . '</td>';
                                             echo '<td valign="top">' . $pulang . '</td>';
@@ -144,21 +141,21 @@
                                 </tr>
                             @endforeach
 
-                            <!-- @foreach ($absensi as $i)
-<tr>
-                                        <td valign="top">{{ $loop->iteration }}</td>
-                                        <td valign="top">{{ $i->siswa->user->nama }}</td>
-                                        <td valign="top">{{ ucwords(str_replace('_', ' ', $i->jenis_absen)) }}</td>
-                                        <td valign="top">{{ $i->tgl_absen }}</td>
-                                        <td valign="top">
-                                            @if ($i->status == 'Late')
-<span class="badge bg-danger">{{ $i->status }}</span>
-@else
-<span class="badge bg-success">{{ $i->status }}</span>
-@endif
-                                        </td>
-                                    </tr>
-@endforeach -->
+                            {{-- @foreach ($absensi as $i)
+                            <tr>
+                                <td valign="top">{{ $loop->iteration }}</td>
+                                <td valign="top">{{ $i->siswa->user->nama }}</td>
+                                <td valign="top">{{ ucwords(str_replace('_', ' ', $i->jenis_absen)) }}</td>
+                                <td valign="top">{{ $i->tgl_absen }}</td>
+                                <td valign="top">
+                                    @if ($i->status == 'Late')
+                                        <span class="badge bg-danger">{{ $i->status }}</span>
+                                    @else
+                                        <span class="badge bg-success">{{ $i->status }}</span>
+                                    @endif
+                                </td>
+                            </tr> --}}
+                            {{-- @endforeach --}}
                         </tbody>
                     </table>
                 </div>
