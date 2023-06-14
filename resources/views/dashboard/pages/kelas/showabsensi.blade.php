@@ -106,7 +106,15 @@
 
                                     // cek jika ada izin di tanggal itu, maka kolom di colspan
                                     if (strlen($pValue['izin']) > 0) {
+<<<<<<< HEAD
                                         echo '<td valign="top" colspan="2" align="center"><span class="badge bg-info">' . $pValue['izin'] . '</span></td>';
+=======
+                                        echo '<td valign="top" colspan="2" align="center">
+                                                                            <span class="badge bg-info">' .
+                                            $pValue['izin'] .
+                                            '</span>
+                                                                                                                                        </td>';
+>>>>>>> 294172b2678e9924b83ad503de2489f9d317b15e
                                     } else {
                                         echo '<td valign="top">' . $datang . '</td>';
                                         echo '<td valign="top">' . $pulang . '</td>';
@@ -116,6 +124,7 @@
                             </tr>
                         @endforeach
 
+<<<<<<< HEAD
                         {{-- @foreach ($absensi as $i)
                             <tr>
                                 <td valign="top">{{ $loop->iteration }}</td>
@@ -131,6 +140,23 @@
                                 </td>
                             </tr> --}}
                         {{-- @endforeach --}}
+=======
+                        <!-- @foreach ($absensi as $i)
+    <tr>
+                                            <td valign="top">{{ $loop->iteration }}</td>
+                                            <td valign="top">{{ $i->siswa->user->nama }}</td>
+                                            <td valign="top">{{ ucwords(str_replace('_', ' ', $i->jenis_absen)) }}</td>
+                                            <td valign="top">{{ $i->tgl_absen }}</td>
+                                            <td valign="top">
+                                                @if ($i->status == 'Late')
+    <span class="badge bg-danger">{{ $i->status }}</span>
+@else
+    <span class="badge bg-success">{{ $i->status }}</span>
+    @endif
+                                            </td>
+                                        </tr>
+    @endforeach -->
+>>>>>>> 294172b2678e9924b83ad503de2489f9d317b15e
                     </tbody>
                 </table>
             </div>

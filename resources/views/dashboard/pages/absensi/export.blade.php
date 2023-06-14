@@ -25,7 +25,7 @@
                 }
             }
             ?>
-            <td align="center" colspan="3">Total</td>
+            <td align="center">Total</td>
         </tr>
         <tr>
             <?php
@@ -41,7 +41,6 @@
 
             <td align="center">Izin</td>
             <td align="center">Sakit</td>
-            <td align="center">Alpha</td>
         </tr>
     </thead>
     <tbody>
@@ -81,7 +80,6 @@
                 ?>
                 <td align="center">{{ $total_izin[$i->id] }}</td>
                 <td align="center">{{ $total_sakit[$i->id] }}</td>
-                <td align="center">{{ $total_alpha[$i->id] }}</td>
             </tr>
         @endforeach
 
