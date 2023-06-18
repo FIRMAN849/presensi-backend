@@ -78,9 +78,10 @@ class AbsensiController extends Controller
         return Excel::download(new AbsensiExport, 'Presensi_' . $nama_kelas . '_' . $date1 . '_' . $date2 . '.xlsx');
     }
 
-    public function destroy(Absensi $absensi)
+    public function destroy($id)
     {
         //delete absensi
+        $absensi = Absensi::find($id);
         $absensi->delete();
 
         //redirect to index

@@ -57,6 +57,7 @@ Route::get('/qrcode', [QrcodeController::class, 'index'])->middleware('auth');
 Route::get('/qrcode/datang', [QrcodeController::class, 'datang'])->name('qrcode.datang')->middleware('auth');
 Route::get('/qrcode/pulang', [QrcodeController::class, 'pulang'])->name('qrcode.pulang')->middleware('auth');
 Route::get('/absensi', [AbsensiController::class, 'index'])->middleware('auth');
+Route::delete('/absensi/{id}', [AbsensiController::class, 'destroy'])->middleware('auth');
 Route::get('/absensi/export', [AbsensiController::class, 'export'])->middleware('auth');
 Route::get('/setting', [SettingController::class, 'index'])->middleware('auth');
 Route::post('/setting/save', [SettingController::class, 'save'])->middleware('auth');
