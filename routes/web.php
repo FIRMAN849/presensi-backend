@@ -13,6 +13,7 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\QrcodeController;
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\RiwayatController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,3 +58,4 @@ Route::get('/qrcode/datang', [QrcodeController::class, 'datang'])->name('qrcode.
 Route::get('/qrcode/pulang', [QrcodeController::class, 'pulang'])->name('qrcode.pulang')->middleware('auth');
 Route::get('/absensi', [AbsensiController::class, 'index'])->middleware('auth');
 Route::get('/absensi/export', [AbsensiController::class, 'export'])->middleware('auth');
+Route::get('/setting', [SettingController::class, 'index'])->middleware('auth');

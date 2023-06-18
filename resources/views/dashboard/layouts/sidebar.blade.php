@@ -131,6 +131,11 @@
 
     <h5 class="sidebar-title">Others</h5>
 
+    <a href="/setting" class="sidebar-item {{ $active === 'setting' ? 'active' : '' }}" onclick="toggleActive(this)">
+        <i class='bx bx-cog'></i>
+        <span>Pengaturan</span>
+    </a>
+
     <form action="/logout" method="post">
         @csrf
         <button type="submit" class="sidebar-item" style="border: none; width: 100%;">
