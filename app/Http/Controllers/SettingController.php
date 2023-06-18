@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Helpers\ResponseFormatter;
 
 class SettingController extends Controller
 {
@@ -120,6 +121,46 @@ class SettingController extends Controller
             'active' => 'setting',
             'data' => $arr_data
         ]);
+    }
+
+    public function save(Request $request) 
+    {
+        $validatedData = $request->validate([
+            'presensi_datang_seninjumat1' => 'required',
+            'presensi_datang_seninjumat2' => 'required',
+            'presensi_pulang_seninkamis1' => 'required',
+            'presensi_pulang_seninkamis2' => 'required',
+            'presensi_pulang_jumat1' => 'required',
+            'presensi_pulang_jumat2' => 'required',
+            'location_latlong' => 'required',
+            'max_radius' => 'required',
+        ]);
+
+        $presensi_datang_seninjumat1 = $validatedData['presensi_datang_seninjumat1'];
+        DB::table('config')->where('key', 'presensi_datang_seninjumat1')->update(['value' => $presensi_datang_seninjumat1]);
+
+        $presensi_datang_seninjumat2 = $validatedData['presensi_datang_seninjumat2'];
+        DB::table('config')->where('key', 'presensi_datang_seninjumat2')->update(['value' => $presensi_datang_seninjumat2]);
+
+        $presensi_pulang_seninkamis1 = $validatedData['presensi_pulang_seninkamis1'];
+        DB::table('config')->where('key', 'presensi_pulang_seninkamis1')->update(['value' => $presensi_pulang_seninkamis1]);
+
+        $presensi_pulang_seninkamis2 = $validatedData['presensi_pulang_seninkamis2'];
+        DB::table('config')->where('key', 'presensi_pulang_seninkamis2')->update(['value' => $presensi_pulang_seninkamis2]);
+
+        $presensi_pulang_jumat1 = $validatedData['presensi_pulang_jumat1'];
+        DB::table('config')->where('key', 'presensi_pulang_jumat1')->update(['value' => $presensi_pulang_jumat1]);
+
+        $presensi_pulang_jumat2 = $validatedData['presensi_pulang_jumat2'];
+        DB::table('config')->where('key', 'presensi_pulang_jumat2')->update(['value' => $presensi_pulang_jumat2]);
+
+        $location_latlong = $validatedData['location_latlong'];
+        DB::table('config')->where('key', 'location_latlong')->update(['value' => $location_latlong]);
+
+        $max_radius = $validatedData['max_radius'];
+        DB::table('config')->where('key', 'max_radius')->update(['value' => $max_radius]);
+        
+        return redirect('/setting')->with('success', 'Simpan berhasil');
     }
 
 }

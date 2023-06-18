@@ -11,7 +11,7 @@
 
     <div class="card mb-5" style="border-radius: 15px">
         <div class="card-body">
-            <form action="/kelas" method="POST" enctype="multipart/form-data">
+            <form action="/setting/save" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3" style="width: 40%">
                     <label class="col-form-label-sm">Waktu Presensi Datang Hari Senin~Jumat</label>
