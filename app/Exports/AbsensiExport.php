@@ -2,12 +2,10 @@
 
 namespace App\Exports;
 
-<<<<<<< HEAD
-// use Request;
-use Illuminate\Support\Facades\Request;
-=======
-use Illuminate\Http\Request;
->>>>>>> parent of 7204fb8 (update total alpha & add kelas in manajemen presensi)
+use Request;
+// use Illuminate\Support\Facades\Request;
+
+// use Illuminate\Http\Request;
 
 use App\Models\Kelas;
 use App\Models\Siswa;
@@ -66,12 +64,14 @@ class AbsensiExport implements FromView
         $arrPresensi = array();
         $totalIzin = array();
         $totalSakit = array();
+        $totalAlpha = array();
         // echo '<pre>';
         foreach ($siswaKelas as $sValue) {
             // var_dump($sValue);
             $arrPresensi[$sValue->id] = array();
             $totalIzin[$sValue->id] = 0;
             $totalSakit[$sValue->id] = 0;
+            $totalAlpha[$sValue->id] = 0;
 
             foreach ($period as $key => $dt) {
                 $daynow = $dt->format('l');
@@ -115,14 +115,12 @@ class AbsensiExport implements FromView
 
                         $arrPresensi[$sValue->id][$key]['izin'] = $ciValue->keterangan;
                     }
-<<<<<<< HEAD
+
 
                     // cek jika masuk atau tidak dan tidak ada izin
                     if ($checkIzin->count() == 0 && $checkAbsensi->count() == 0) {
                         $totalAlpha[$sValue->id]++;
                     }
-=======
->>>>>>> parent of 7204fb8 (update total alpha & add kelas in manajemen presensi)
                 }
             }
         }
@@ -136,7 +134,8 @@ class AbsensiExport implements FromView
             'siswa' => $siswaKelas,
             'presensi' => $arrPresensi,
             'total_izin' => $totalIzin,
-            'total_sakit' => $totalSakit
+            'total_sakit' => $totalSakit,
+            'total_alpha' => $totalAlpha
         ]);
     }
 }

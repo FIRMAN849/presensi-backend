@@ -48,6 +48,13 @@ class IzinController extends Controller
         }
         $izins->status = 'Pending';
 
+        $izinSama = Izin::where('tgl_izin', $validatedData['tgl_izin']);
+        if ($izinSama) {
+            return ResponseFormatter::error(
+                'Izin di tanggal itu sudah ada'
+            );
+        }
+
 
         $izins->save();
 

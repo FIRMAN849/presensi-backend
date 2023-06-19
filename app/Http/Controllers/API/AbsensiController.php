@@ -68,56 +68,56 @@ class AbsensiController extends Controller
 
         // ambil data pengaturan
         $check_pdsj1 = DB::table('config')->where(['key' => 'presensi_datang_seninjumat1']);
-        if($check_pdsj1->count() == 0) {
+        if ($check_pdsj1->count() == 0) {
             $presensi_datang_seninjumat1 = '06:00:00';
         } else {
             $presensi_datang_seninjumat1 = $check_pdsj1->first()->value;
         }
 
         $check_pdsj2 = DB::table('config')->where(['key' => 'presensi_datang_seninjumat2']);
-        if($check_pdsj2->count() == 0) {
+        if ($check_pdsj2->count() == 0) {
             $presensi_datang_seninjumat2 = '08:00:00';
         } else {
             $presensi_datang_seninjumat2 = $check_pdsj2->first()->value;
         }
 
         $check_ppsk1 = DB::table('config')->where(['key' => 'presensi_pulang_seninkamis1']);
-        if($check_ppsk1->count() == 0) {
+        if ($check_ppsk1->count() == 0) {
             $presensi_pulang_seninkamis1 = '15:00:00';
         } else {
             $presensi_pulang_seninkamis1 = $check_ppsk1->first()->value;
         }
 
         $check_ppsk2 = DB::table('config')->where(['key' => 'presensi_pulang_seninkamis2']);
-        if($check_ppsk2->count() == 0) {
+        if ($check_ppsk2->count() == 0) {
             $presensi_pulang_seninkamis2 = '17:00:00';
         } else {
             $presensi_pulang_seninkamis2 = $check_ppsk2->first()->value;
         }
 
         $check_ppj1 = DB::table('config')->where(['key' => 'presensi_pulang_jumat1']);
-        if($check_ppj1->count() == 0) {
+        if ($check_ppj1->count() == 0) {
             $presensi_pulang_jumat1 = '10:45:00';
         } else {
             $presensi_pulang_jumat1 = $check_ppj1->first()->value;
         }
 
         $check_ppj2 = DB::table('config')->where(['key' => 'presensi_pulang_jumat2']);
-        if($check_ppj2->count() == 0) {
+        if ($check_ppj2->count() == 0) {
             $presensi_pulang_jumat2 = '12:00:00';
         } else {
             $presensi_pulang_jumat2 = $check_ppj2->first()->value;
         }
 
         $check_latlong = DB::table('config')->where(['key' => 'location_latlong']);
-        if($check_latlong->count() == 0) {
+        if ($check_latlong->count() == 0) {
             $location_latlong = '-7.7646547,113.4185951';
         } else {
             $location_latlong = $check_latlong->first()->value;
         }
 
         $check_maxradius = DB::table('config')->where(['key' => 'max_radius']);
-        if($check_maxradius->count() == 0) {
+        if ($check_maxradius->count() == 0) {
             $max_radius = '50';
         } else {
             $max_radius = $check_maxradius->first()->value;
@@ -182,15 +182,15 @@ class AbsensiController extends Controller
         $location = str_replace(' ', '', $location);
 
         $key = 'AIzaSyDavEi5c_uNC-45kkDP6Rc4VkZSWh5DVjI';
-        $url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='.$location.'&key='.$key;
+        $url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' . $location . '&key=' . $key;
         $crl = curl_init();
         curl_setopt($crl, CURLOPT_URL, $url);
         curl_setopt($crl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($crl, CURLOPT_SSL_VERIFYPEER, false);
         $maps = curl_exec($crl);
         curl_close($crl);
-        
-        if(is_object(json_decode($maps))) {
+
+        if (is_object(json_decode($maps))) {
             $address = json_decode($maps)->results[0]->formatted_address;
             $address_lat = json_decode($maps)->results[0]->geometry->location->lat;
             $address_lng = json_decode($maps)->results[0]->geometry->location->lng;
@@ -205,7 +205,7 @@ class AbsensiController extends Controller
             $location_distance = $this->get_distance_beetween($lat, $long, $address_lat, $address_lng);
             var_dump($location_distance);
 
-            if($location_distance > $max_radius) {
+            if ($location_distance > $max_radius) {
                 return ResponseFormatter::error(
                     null,
                     'Lokasi presensi diluar area sekolah'
@@ -245,21 +245,22 @@ class AbsensiController extends Controller
         // }
     }
 
-    function get_distance_beetween($latitude1, $longitude1, $latitude2, $longitude2, $unit = 'meters') {
-        $theta = $longitude1 - $longitude2; 
-        $distance = (sin(deg2rad($latitude1)) * sin(deg2rad($latitude2))) + (cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * cos(deg2rad($theta))); 
-        $distance = acos($distance); 
-        $distance = rad2deg($distance); 
-        $distance = $distance * 60 * 1.1515; 
-        switch($unit) { 
-            case 'miles': 
-                break; 
-            case 'kilometers': 
+    function get_distance_beetween($latitude1, $longitude1, $latitude2, $longitude2, $unit = 'meters')
+    {
+        $theta = $longitude1 - $longitude2;
+        $distance = (sin(deg2rad($latitude1)) * sin(deg2rad($latitude2))) + (cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * cos(deg2rad($theta)));
+        $distance = acos($distance);
+        $distance = rad2deg($distance);
+        $distance = $distance * 60 * 1.1515;
+        switch ($unit) {
+            case 'miles':
+                break;
+            case 'kilometers':
                 $distance = $distance * 1.609344;
             case 'meters':
                 $distance = $distance * 1.609344 * 1000;
         }
-        return (round($distance, 2)); 
+        return (round($distance, 2));
     }
 
     public function history($siswa_id)
