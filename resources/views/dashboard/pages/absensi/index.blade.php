@@ -94,7 +94,7 @@
                                 <form action="/absensi/{{ $i->id }}" method="POST" class="d-inline">
                                     @method('delete')
                                     @csrf
-                                    <button class="btn btn-danger btn-sm border-0"
+                                    <button type="submit" class="btn btn-danger btn-sm border-0"
                                         onclick="return confirm('Are you sure?')"><i class="bx bx-trash"></i></button>
                                 </form>
                             </td>

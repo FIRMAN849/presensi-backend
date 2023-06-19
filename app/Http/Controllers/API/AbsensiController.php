@@ -203,7 +203,7 @@ class AbsensiController extends Controller
             // var_dump($long);
 
             $location_distance = $this->get_distance_beetween($lat, $long, $address_lat, $address_lng);
-            // var_dump($location_distance);
+            var_dump($location_distance);
 
             if($location_distance > $max_radius) {
                 return ResponseFormatter::error(
