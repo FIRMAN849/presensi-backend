@@ -46,13 +46,15 @@ class AbsensiController extends Controller
         $daynow = Date('l');
         $timenow = Date('H:i:s');
 
-        // cek apakah user sudah presensi atau belum hari ini
-        $check = DB::table('absensis')->where(['siswa_id' => $validatedData['siswa_id'], 'jenis_absen' => $jenis_absen])->whereDate('tgl_absen', $datenow)->count();
-        if ($check > 0) {
-            return ResponseFormatter::error(
-                null,
-                'Anda sudah ' . str_replace('_', ' ', $jenis_absen) . ' hari ini'
-            );
+        // cek apakah user sudah presensi atau belum hari ini (kecuali presensi pulang)
+        if($jenis_absen != 'presensi_pulang') {
+            $check = DB::table('absensis')->where(['siswa_id' => $validatedData['siswa_id'], 'jenis_absen' => $jenis_absen])->whereDate('tgl_absen', $datenow)->count();
+            if ($check > 0) {
+                return ResponseFormatter::error(
+                    null,
+                    'Anda sudah ' . str_replace('_', ' ', $jenis_absen) . ' hari ini'
+                );
+            }
         }
 
         // validasi jika presensi_pulang tetapi belum presensi_datang
@@ -203,7 +205,7 @@ class AbsensiController extends Controller
             // var_dump($long);
 
             $location_distance = $this->get_distance_beetween($lat, $long, $address_lat, $address_lng);
-            var_dump($location_distance);
+            // var_dump($location_distance);
 
             if ($location_distance > $max_radius) {
                 return ResponseFormatter::error(
@@ -218,13 +220,41 @@ class AbsensiController extends Controller
             );
         }
 
-        $absensi = new Absensi();
-        $absensi->fill($validatedData);
-        $absensi->jenis_absen = $jenis_absen;
-        $absensi->tgl_absen = $now;
-        $absensi->status = $status;
-        $absensi->save();
-        // $result = $absensi->save();
+        // cek apakah sudah preseni pulang atau belum
+        if($jenis_absen == 'presensi_pulang') {
+            $check_absen = DB::table('absensis')->whereDate('tgl_absen', '=', $datenow)->where([
+                'siswa_id' => $validatedData['siswa_id'],
+                'jenis_absen' => 'presensi_pulang',
+            ]);
+            // var_dump($check_absen->count());
+
+            if($check_absen->count() > 0) {
+                // update presensi pulang
+                DB::table('absensis')->where('id', $check_absen->first()->id)->update(['tgl_absen' => $now, 'updated_at' => $now]);
+
+                $absensi = Absensi::where('id', $check_absen->first()->id)->first();
+
+            } else {
+                // insert absen
+                $absensi = new Absensi();
+                $absensi->fill($validatedData);
+                $absensi->jenis_absen = $jenis_absen;
+                $absensi->tgl_absen = $now;
+                $absensi->status = $status;
+                $absensi->save();
+            }
+
+        } else {
+            // jika bukan presensi pulang
+            $absensi = new Absensi();
+            $absensi->fill($validatedData);
+            $absensi->jenis_absen = $jenis_absen;
+            $absensi->tgl_absen = $now;
+            $absensi->status = $status;
+            $absensi->save();
+            // $result = $absensi->save();
+        }
+
 
         $message = 'Presensi berhasil';
         if ($status == 'Terlambat') {
